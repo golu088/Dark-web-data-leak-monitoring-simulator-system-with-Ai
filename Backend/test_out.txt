@@ -1,0 +1,4 @@
+  File "<string>", line 1
+    import traceback; import os; from dotenv import load_dotenv; load_dotenv(); import google.generativeai as genai; genai.configure(api_key=os.getenv('GEMINI_API_KEY')); model = genai.GenerativeModel('gemini-2.5-flash', system_instruction='Test'); try: print(model.generate_content('hi')) except Exception as e: traceback.print_exc()
+                                                                                                                                                                                                                                                         ^^^
+SyntaxError: invalid syntax
