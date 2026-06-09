@@ -63,8 +63,10 @@ def check_email():
     # 🔹 4. AI RECOMMENDATION
     # ======================
     ai_recommendation = None
-    if api_key:
+    current_key = api_key or os.getenv("GEMINI_API_KEY")
+    if current_key:
         try:
+            genai.configure(api_key=current_key)
             model = genai.GenerativeModel(model_name="gemini-flash-latest")
             prompt = (f"A user just scanned their email '{email}'. They have {breach_count} breaches. "
                       f"The risk level is {risk}. Provide a concise 1-2 sentence actionable security "
@@ -73,6 +75,13 @@ def check_email():
             ai_recommendation = response.text.strip().replace("*", "")
         except Exception as e:
             print("Gemini API Error:", e)
+
+    # Dynamic fallback recommendation if API call fails or key is missing
+    if not ai_recommendation:
+        if breach_count > 0:
+            ai_recommendation = f"Your email was found in {breach_count} data breach(es). We highly recommend changing your password immediately, enabling two-factor authentication (2FA), and checking for other active accounts using this email."
+        else:
+            ai_recommendation = "Your email is currently safe and was not found in any known database breaches. Keep maintaining strong, unique passwords for maximum security."
 
     # ======================
     # 🔹 FINAL RESPONSE

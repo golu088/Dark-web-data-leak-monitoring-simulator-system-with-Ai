@@ -35,26 +35,26 @@ function Dashboard() {
     }
   };
 
-  const getYearlyData = () => {
-    if (!result || !result.breach_details) return [];
+  // const getYearlyData = () => {
+  //   if (!result || !result.breach_details) return [];
     
-    const yearCounts = {};
-    result.breach_details.forEach(b => {
-      const year = b.year || "Unknown";
-      yearCounts[year] = (yearCounts[year] || 0) + 1;
-    });
+  //   const yearCounts = {};
+  //   result.breach_details.forEach(b => {
+  //     const year = b.year || "Unknown";
+  //     yearCounts[year] = (yearCounts[year] || 0) + 1;
+  //   });
 
-    const sortedYears = Object.keys(yearCounts).sort();
-    if (sortedYears.length === 0) return [];
+  //   const sortedYears = Object.keys(yearCounts).sort();
+  //   if (sortedYears.length === 0) return [];
     
-    const maxCount = Math.max(...Object.values(yearCounts));
+  //   const maxCount = Math.max(...Object.values(yearCounts));
     
-    return sortedYears.map(year => ({
-      year,
-      count: yearCounts[year],
-      heightPercentage: Math.max((yearCounts[year] / maxCount) * 100, 5) 
-    }));
-  };
+  //   return sortedYears.map(year => ({
+  //     year,
+  //     count: yearCounts[year],
+  //     heightPercentage: Math.max((yearCounts[year] / maxCount) * 100, 5) 
+  //   }));
+  // };
 
   const handleDownloadReport = async () => {
     if (!reportRef.current) return;
